@@ -2,6 +2,7 @@ import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import { MikroORM } from "@mikro-orm/core";
 import path from "path";
+import Config from "./config";
 
 export default {
   migrations: {
@@ -10,8 +11,8 @@ export default {
   },
   entities: [Post],
   dbName: "redditclone",
-  user: config.user,
-  password: config.password,
+  user: Config.user,
+  password: Config.password,
   type: "postgresql",
   debug: !__prod__,
 } as Parameters<typeof MikroORM.init>[0];
