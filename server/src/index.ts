@@ -25,7 +25,7 @@ const main = async () => {
     type: "postgres",
     url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    // synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User, Updoot],
   });
@@ -37,6 +37,7 @@ const main = async () => {
 
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);
+  app.set("proxy", 1);
   app.use(
     cors({
       origin: process.env.CORS_ORIGIN,
@@ -55,7 +56,7 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax", // csrf
         secure: __prod__, // cookie only works in https
-        domain: __prod__ ? ".codeponder.com" : undefined,
+        domain: __prod__ ? ".sekkaro.com" : undefined,
       },
       secret: process.env.SESSION_SECRET,
       resave: false,
